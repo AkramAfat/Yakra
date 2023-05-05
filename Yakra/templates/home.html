@@ -1,4 +1,11 @@
 {%extends 'base.html'%}
 {%block content %}
 <h1>tweets!</h1>
+<br/>
+{% for tweet in tweets %}
+<div class="alert alert-success" role="alert">
+    {{tweet}}<br/><br/>
+  </div>
+
+{% endfor %}
 {% endblock%}
