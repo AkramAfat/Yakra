@@ -1,12 +1,27 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from .models import Profile
+from .models import Profile,Tweet
 from django.contrib import messages
-from .models import Tweet
+from .forms import TweetForm
+from django.contrib.auth import authenticate,login,logout
+
+
+
+
 
 def home(request):
-    if request.user.is_authenticated:
-        tweets = Tweet.objects.all().order_by("-created_at")
+ if request.user.is_authenticated:
+    form = TweetForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+                tweet =form.save(commit=False)
+                tweet.user = request.user
+                tweet.save()
+                messages.success(request,("Your Tweet has been posted "))
+                return redirect('home')
+    tweets = Tweet.objects.all().order_by("-created_at")
+    return render(request,'home.html',{"tweets":tweets, "form":form})
+ else:
+    tweets = Tweet.objects.all().order_by("-created_at")
     return render(request,'home.html',{"tweets":tweets})
 
 def profile_list(request):
@@ -42,3 +57,29 @@ def profile(request, pk):
     else:
          messages.success(request,("You Must Be logged In to Enter this Page"))
          return redirect('home')
+    
+
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request,("You Have Been Logged In "))
+            return redirect('home')
+        else:
+             messages.success(request,("Password Invalid Please Try Again "))
+             return redirect('login')
+
+
+    else:   
+        return render(request,"login.html",{})
+
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request,("You Have Been Logged Out | Login To Tweet "))
+    return redirect('home')
