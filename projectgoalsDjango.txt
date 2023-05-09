@@ -1,0 +1,8 @@
+creating tweet 
+reading tweet
+update a tweet
+delete a tweet 
+python manage.py migrate
+python manage.py createsuperuser : to create in admin
+csrf_token to protect us from hackers
+actual page(html) ->url->view
