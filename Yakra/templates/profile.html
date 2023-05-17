@@ -15,12 +15,20 @@
     @{{tweet.user.username}}
   </small>
   </div><br/><br/>
+  
 {% endfor %}
 {% endif %}
+
             </div>
 
             <div class="col-4">
+              {% if profile.profile_image %}
+              <img height="260" src="{{ profile.profile_image.url}}"
+              >
+              <br/><br/>
+              {%endif%}
                 <div class="card">
+                  
 <h5 class="card-header">Following</h5>
 <div class="card-body">
                   
@@ -36,6 +44,7 @@
             
          
         <br/><br/>
+        
         <div class="card">
 <h5 class="card-header">Followers</h5>
 <div class="card-body">
@@ -66,7 +75,11 @@
   </button>
 {% endif %}
 </form>
-          
+</br>
+          <!--ila kan user ldyr login byn update profile ila la mtbynoch-->
+          {% if request.user.id == profile.user.id %}
+          <a href="{% url 'update_user' %}" class="btn btn-outline-secondary">Update Profile</a>
+          {% endif %}
                 </div>
             </div>    
         </div>
