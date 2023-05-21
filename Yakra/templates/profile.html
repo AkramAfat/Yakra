@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {%block content %}
+{% load static%}
 {% if profile %}
     <div class="container text-center">
         <div class = "row">
@@ -8,14 +9,29 @@
                 <br/>
 {% if tweets %}
 {% for tweet in tweets %}
+
 <div class="alert alert-success" role="alert">
+  <div class="container">
+    <div class="row">
+      <div class="col-1">
+        {% if profile.profile_image %}
+        <img src="{{profile.profile_image.url}}"
+        width = 50 height=50 class = "rounded-circle" alt="{{ profile.user.username}}">
+        {%else%}
+        <img src="{% static 'images/default.jpg' %}"
+        width = 50 height=50 class = "rounded-circle" alt="{{ profile.user.username}}">
+        {% endif %}
+      </div>
+      <div class="col-11">
   {{ tweet.body }} <br/>
   <small class ="text.muted">
     ({{tweet.created_at}}) By 
     @{{tweet.user.username}}
   </small>
   </div><br/><br/>
-  
+  </div>
+    </div>
+      </div>
 {% endfor %}
 {% endif %}
 
@@ -24,7 +40,7 @@
             <div class="col-4">
               {% if profile.profile_image %}
               <img height="260" src="{{ profile.profile_image.url}}"
-              >
+              class ="rounded-circle">
               <br/><br/>
               {%endif%}
                 <div class="card">
