@@ -27,6 +27,19 @@
   <small class ="text.muted">
     ({{tweet.created_at}}) By 
     @{{tweet.user.username}}
+    - {{tweet.number_of_likes}} Likes  -
+    {% if user in tweet.likes.all %}
+    <a href="{% url 'tweet_like' tweet.id %}">
+      <i class="fa-solid fa-heart" style="color:red"></i>
+
+    </a>
+    {% else %}
+    <a href="{% url 'tweet_like' tweet.id %}">
+      <i class="fa fa-heart-o" style="color:red"></i>
+
+    </a>
+    {% endif %}
+
   </small>
   </div><br/><br/>
   </div>
