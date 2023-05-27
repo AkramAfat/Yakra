@@ -27,12 +27,12 @@ class Tweet(models.Model):
 
 
 
-#create a user profil model / oneto one field = one user can use one profile but manytomany means he can follow many users 
+#create a user profil model / one to one field = one user can use one profile but manytomany means he can follow many users 
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     follows = models.ManyToManyField("self",
          related_name="followed_by",
-         symmetrical=False, #not neccessary to follow each other
+         symmetrical=False, #not neccessary to follow each other i can follow you but not neccecary to follow me back
          blank=True) #don't have to follow anyone
 
 

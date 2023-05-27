@@ -1,64 +1,96 @@
 {% extends 'base.html' %}
+
 {% block content %}
-{% load static %}
+  {% load static %}
 
-<div class="container text-center">
-  <div class = "row">
-      <div class="col-8">
-
-
-<h1>The tweets</h1>
-<br/>
-{% for tweet in tweets %}
-<div class="alert alert-success" role="alert">
-  <div class="container">
+  <div class="container text-center">
     <div class="row">
-      <div class="col-1">
-        {% if tweet.user.profile.profile_image %}
-        <img src="{{tweet.user.profile.profile_image.url}}"
-        width = 50 height=50 class = "rounded-circle" alt="{{ profile.user.username}}">
-        {%else%}
-        <img src="{% static 'images/default.jpg' %}"
-        width = 50 height=50 class = "rounded-circle" alt="{{ profile.user.username}}">
+      <div class="col-md-9">
+        {% if user.is_authenticated %}
+          <h1>The tweets</h1>
+          <br/>
+          {% for tweet in tweets %}
+            <div class="alert alert-success" role="alert">
+              <div class="container">
+                <div class="row">
+                  <div class="col-1">
+                    {% if tweet.user.profile.profile_image %}
+                      <img src="{{tweet.user.profile.profile_image.url}}" width="50" height="50" class="rounded-circle" alt="{{ profile.user.username }}">
+                    {% else %}
+                      <img src="{% static 'images/default.jpg' %}" width="50" height="50" class="rounded-circle" alt="{{ profile.user.username }}">
+                    {% endif %}
+                  </div>
+                  <div class="col-11">
+                    {{ tweet.body }} <br/>
+                    <small class="text-muted">
+                      ({{ tweet.created_at }}) By @{{ tweet.user.username }}<br/>
+                      {{ tweet.number_of_likes }} Likes
+                      {% if user in tweet.likes.all %}
+                        <a href="{% url 'tweet_like' tweet.id %}">
+                          <i class="fa-solid fa-heart" style="color:red"></i>
+                        </a>
+                      {% else %}
+                        <a href="{% url 'tweet_like' tweet.id %}">
+                          <i class="fa fa-heart-o" style="color:red"></i>
+                        </a>
+                      {% endif %}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="text-left">
+                <img src="{% static 'images/yakra-logo.png' %}" alt="Yakra Logo" width="400" class="logo">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="text-right">
+                <br/><br/>
+                <h1 class="welcome-heading">Welcome to Yakra</h1>
+                <div class="mt-3">
+                  <p class="lead">Stay connected with your interests and discover new things happening around the world.</p>
+                </div>
+                <br/>
+                <div class="mt-3 text-center">
+                  <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
+                  <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Log In</a>
+                </div>
+              </div>
+            </div>
+          </div>
         {% endif %}
       </div>
-
-      <div class ="col-11">
-    {{ tweet.body }} <br/>
-    <small class ="text.muted">
-      ({{tweet.created_at}}) By 
-      @{{tweet.user.username}}
-    <br/>
-       {{tweet.number_of_likes}} Likes 
-      {% if user in tweet.likes.all %}
-      <a href="{% url 'tweet_like' tweet.id %}">        
-        <i class="fa-solid fa-heart" style="color:red"></i>
-      </a>
-      {% else %}
-      <a href="{% url 'tweet_like' tweet.id %}">
-        <i class="fa fa-heart-o" style="color:red"></i>
-      </a>
-      {% endif %}
-
-
-    </small>
-</div><br/><br/>
-</div>
+      <div class="col-md-3">
+        <br/><br/><br/>
+        {% if form %}
+          <form method="POST">
+            {% csrf_token %} 
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Tweet</button>
+          </form>
+        {% endif %}
+      </div>
     </div>
-    </div>
-{% endfor %}
-</div>
-<div class="col-4">
-                <br/><br/><br/>
+  </div>
 
-{% if form %}
-  <form method=POST>
-        {% csrf_token %} 
-    {{ form.as_p }}
+  <style>
+    .logo {
+      width: 400px;
+    }
 
-    <button type="submit" class="btn btn-primary">Tweet</button>
-  </form>
-{% endif %}
-</div>
+    .welcome-heading {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 20px;
+    }
 
-{% endblock%}
+    .lead {
+      font-size: 20px;
+      color: #666;
+    }
+  </style>
+{% endblock %}
