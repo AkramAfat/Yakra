@@ -1,17 +1,47 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-<h1>Register</h1>
-<p>Fill out the form below to register for a new account</p>
-<br/>
-
-<form method="POST" action="">
-    {% csrf_token %}
-    {{form.as_p}}
-<br/>
-<button type="submit" class="btn btn-primary">Register</button>
-</form>
-
+<div class="container">
+    <div class="col register">
+         <h1 style="color: aliceblue;">Register</h1>
+        <p style="color: #01140bb4;">Fill out the form below to register for a new account</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+        <button type="submit" class="btn btn-success btn-lg" >Register</button>
+        </form>
+    </div>
 </div>
+<style>
+
+    
+    :root{
+      --radius: 15px;
+    } 
+    .container{
+        border-radius: var(--radius);
+        padding: 1rem 1.5rem;
+        color: #3cb176b4;
+        background-color: #008757;
+        max-width:fit-content;
+        padding-right: 320px;
+        padding-left: 320px;
+        padding-bottom: 0.5%;
+    }
+    
+    .register{
+        width: 100%;
+        border: none ;
+        border-radius: var(--radius);
+        padding: 2rem 2.5rem;
+        font-size: 20px;
+        background-color: #f4f4f425;
+        color: #ffffff70;
+        width: 600px;
+    }
+    .btn-success{
+        margin-left: 200px;
+    }
+    
+</style>
 {% endblock %}

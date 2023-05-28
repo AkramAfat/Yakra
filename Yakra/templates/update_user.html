@@ -1,18 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
-<h1>Update User</h1>
-<br/>
+<div class="container">
+    <div class="col update">
+        <h1 style="color: aliceblue;">Update User</h1>
+        <br/>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{user_form.as_p}}
+            {{profile_form.as_p}}
 
-<form method="POST" action="" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{user_form.as_p}}
-    {{profile_form.as_p}}
-
-<br/> <br/>
-<button type="submit" class="btn btn-primary">Update Profile</button>
-</form>
-
+        <br/>
+        <button type="submit" class="btn btn-success" >Update Profile</button>
+        </form>
+    </div>
 </div>
+<style>
+
+    
+    :root{
+      --radius: 15px;
+    } 
+    .container{
+        border-radius: var(--radius);
+        padding: 1rem 1.5rem;
+        color: #3cb176b4;
+        background-color: #008757;
+        max-width:fit-content;
+        padding-right: 320px;
+        padding-left: 320px;
+        padding-bottom: 0.5%;
+    }
+    
+    .update{
+        width: 100%;
+        border: none ;
+        margin-top: -40px;
+        border-radius: var(--radius);
+        padding: 2rem 2.5rem;
+        font-size: 20px;
+        background-color: #f4f4f425;
+        color: #ffffff70;
+        width: 600px;
+    }
+    .btn-success{
+        margin-left: 200px;
+    }
+    
+</style>
 {% endblock %}

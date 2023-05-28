@@ -1,34 +1,57 @@
 {%extends 'base.html'%}
 {% load static%}
 {%block content %}
-<h1>Profile List</h1>
-<br/>
+      <div class="container">
+        <h1 class="h1">Profile List</h1>
+        <br/>
 
-{%if profiles %}
-{%for profile in profiles %}
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-      <div class="col-md-4">
-      {% if profile.profile_image %}
-       <img src="{{ profile.profile_image.url }}" width=200 height=200 class="img-fluid rounded-start" alt"{{profile.user.username}}">
-       {%else%}
-       <img src="{%static 'images/default.jpg'%}" class="img-fluid rounded-start" alt="Porfile image">
+        {%if profiles %}
+        {%for profile in profiles %}
+          <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  {% if profile.profile_image %}
+                  <img src="{{ profile.profile_image.url }}" width=200 height=200 class="img-fluid rounded-start" alt="{{profile.user.username}}">
+                  {%else%}
+                  <img src="{%static 'images/default.jpg'%}" class="img-fluid rounded-start" alt="Porfile image">
 
-      {% endif %}
+                  {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{profile.user.username}}</h5>
+                    <p class="card-text"> <a href="{%url 'profile' profile.user.id%}">@{{profile.user.username}}</a></p>Updated : {{ profile.date_modified }}</small></p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <br/><br/>
 
+        {%endfor%}
+        {% endif %}
       </div>
-      <div class="col-md-8">
-        <div class="card-body">
-          <h5 class="card-title">{{profile.user.username}}</h5>
-          <p class="card-text"> <a href="{%url 'profile' profile.user.id%}">@{{profile.user.username}}</a></p>Updated : {{ profile.date_modified }}</small></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br/><br/>
+  <style>
 
-
-{%endfor%}
-{% endif %}
-
+    :root{
+      --radius: 15px;
+    } 
+    .h1{
+      color: white;
+    }
+    .container{
+        border-top: 50px;
+        border-radius: var(--radius);
+        padding: 1rem 1.5rem;
+        color: #3cb176b4;
+        background-color: #00bd8ed4;
+        max-width:fit-content;
+        padding-right: 320px;
+        padding-left: 320px;
+        padding-bottom: 10px;
+        margin-bottom: 24px;
+    }
+    .row {
+        background-color: #cde7dd;
+      }
+  </style>
 {% endblock%}

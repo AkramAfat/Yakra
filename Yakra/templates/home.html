@@ -41,10 +41,10 @@
             </div>
           {% endfor %}
         {% else %}
-          <div class="row mt-4">
+          <div class="row row1">
             <div class="col-md-6">
               <div class="text-left">
-                <img src="{% static 'images/yakra-logo.png' %}" alt="Yakra Logo" width="400" class="logo">
+                <img src="{% static 'images/Yakra_Logo.png' %}" alt="YakraLogo" width="600" class="logo">
               </div>
             </div>
             <div class="col-md-6">
@@ -56,8 +56,8 @@
                 </div>
                 <br/>
                 <div class="mt-3 text-center">
-                  <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Sign Up</a>
-                  <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">Log In</a>
+                  <a href="{% url 'login' %}" class="btn btn-success btn-lg">Log In</a>
+                  <a href="{% url 'register' %}" class="btn btn-success btn-lg">Sign Up</a>
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
           <form method="POST">
             {% csrf_token %} 
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Tweet</button>
+            <button type="submit" class="btn btn-success ">Tweet</button>
           </form>
         {% endif %}
       </div>
@@ -78,19 +78,60 @@
   </div>
 
   <style>
-    .logo {
-      width: 400px;
+     :root{
+      --radius: 15px;
     }
-
+    .cssTweet{
+      width: 100%;
+      margin-bottom: 1rem;
+      margin-top: 10px;
+      border: none ;
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem 2rem 2rem;
+      font-size: 20px;
+      background-color: #cfe7dd;
+    }
+    .row1 {
+      border-radius: var(--radius);
+      padding: 2rem 10rem 14.7rem 4rem;
+      color: #3cb176b4;
+      background-color: #008757;
+      margin-bottom: -120px;
+      margin-top: -24px;
+      margin-right: -627px;
+      margin-left: -304px;
+    }
+    .logo {
+      width: 500px;
+      margin-bottom: 50px;
+      margin-left: -50px;
+      margin-right: 100px;
+    }
+    .text-right {
+      width: 100%;
+      margin-bottom: 2rem;
+      border: none ;
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      font-size: 20px;
+      background-color: #f4f4f425;
+      color: white;
+      margin-left: 0px;
+      margin-top: 100px;
+      width: 600px;
+      
+    }
     .welcome-heading {
       font-size: 36px;
-      color: #333;
+      color: #000000;
+      margin-top: -20px;
       margin-bottom: 20px;
     }
 
     .lead {
+      padding-top: 35px;
       font-size: 20px;
-      color: #666;
+      color: #ffffff;
     }
   </style>
 {% endblock %}

@@ -20,7 +20,7 @@ class TweetForm(forms.ModelForm):
         widget=forms.widgets.Textarea(
              attrs={
                  "placeholder": "Enter Your Tweet!",
-                 "class": "form-control",
+                 "class": "cssTweet",
              }   
         ),
         label="",
